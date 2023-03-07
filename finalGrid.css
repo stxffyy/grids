@@ -1,0 +1,283 @@
+/* Обнуление */
+
+*,
+*::before,
+*::after {
+    padding: 0;
+    margin: 0;
+    border: 0;
+    box-sizing: border-box;
+}
+
+a {
+    text-decoration: none;
+}
+
+ul,
+ol,
+li {
+    list-style: none;
+}
+
+img {
+    vertical-align: top;
+    /* Выравнивает верхний край элемента и его потомков с верхним краем всей строки. */
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: inherit;
+    font-size: inherit;
+}
+
+html,
+body {
+    height: 100%;
+    line-height: 1;
+}
+
+
+/* =============================================================== */
+
+/* Главный грид-контейнер 
+Делаем на всю высоту экрана, присваиваю grid И выстраиваем сетку
+И назовём наши гриды элементы для наглядности*/
+.wrapper {
+    min-height: 100%;
+    display: grid;
+    grid-template: minmax(100px, auto) 1fr minmax(70px, auto) / 1fr;
+    /* шапка, контент (занимает все свободное пространство и прижимает футер), футер / 1 колонка */
+    grid-template-areas: 
+        "header"
+        "main"
+        "footer";
+}
+
+/* ====================================================================================== */
+
+/* Тут так же задаём грид и сетку */
+.header__container {
+    grid-area: header;
+    padding: 15px;
+    background-color: #C4A389;
+    align-items: center;
+    display: grid;
+    grid-template: 1fr /  1fr minmax(auto, 300px) minmax(auto, 1100px) 1fr ;
+    /* ограничивающий контейнер - 1 ряд/ 4 колонки */
+}
+
+/* Эмитация логотипа */
+.header__logo {
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    background-color: #fff;
+    grid-column: 2/3;
+    /* логотип начинаем со 2й колонки (а не с 1fr), иначе всё сломается */
+}
+
+.header__menu {
+    grid-column: 3/4;
+    /* меню начинаем с 3й колонки, заканчиваем на 4й */
+}
+
+/* Меню тоже будем строить гридом
+Используем автоматическое заполнение, благодаря этому элементы li выстроятся в ряд*/
+.header__list {
+    display: grid;
+    grid-auto-flow: column;
+    justify-items: end;
+}
+
+.header__list li {}
+
+.header__link {
+    color: #fff;
+    font-size: 18px;
+}
+
+.header__burger {}
+
+/* ====================================================================================== */
+
+/* Задаём грид и копируем сетку из шапки */
+.main {
+    grid-area: main;
+    padding: 30px 15px;
+    display: grid;
+    grid-template: 1fr / 1fr minmax(auto, 300px) minmax(auto, 1100px) 1fr;
+    background-color: #D2C5B1;
+}
+
+.sidebar {
+    grid-column: 2/3;
+    /* сайдбар должен начинаться со 2 колонки */
+    background-color: #F6CE53;
+    padding: 30px 15px;
+}
+
+.sidebar__menu {}
+
+.sidebar__list {}
+
+.sidebar__list li {
+    margin: 0px 0px 15px 0px;
+}
+
+.sidebar__link {
+    color: #fff;
+    font-size: 20px;
+}
+
+/* ================================================================================================= */
+
+/* Здесь тоже задаём грид */
+.content {
+    grid-column: 3/4;
+    /* контент должен начинаться с 3й колонки */
+    padding: 0px 0px 0px 30px;
+}
+
+.content__title {
+    color: #fff;
+    font-size: 30px;
+    font-weight: 700;
+    margin: 0px 0px 30px 0px;
+}
+
+.content__gallery {
+    margin: 0px 0px 30px 0px;
+}
+
+/* ============================================================================================================ */
+
+.gallery {}
+
+.gallery__title {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0px 0px 15px 0px;
+}
+
+/* Верстаем галерею, задаём грид */
+.gallery__items {
+    display: grid;
+    gap: 10px;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    /* Repeat - Фотки будут выстраиваться автоматически (столько, сколько помещается и выходить на новую строку) 
+    auto-fit - заполняет всё доступное пространство 
+    minmax - минимальное значние ячейки с изображением*/
+}
+
+.gallery__item {
+    position: relative;
+    padding: 0px 0px 85% 0px;
+}
+
+.gallery__item img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    /* Свойство object-fit масштабирует,обрезает или растягивает содержимое замещаемых элементов.
+    Содержимое элемента обрезается, выравниваясь по центру с сохранением пропорций таким образом,
+    чтобы полностью заполнить область контейнера. */
+}
+
+.gallery__item_big {
+    grid-column: span 2;
+    /* Сколько колонок(ячеек) будет занимать фотка */
+    grid-row: span 2;
+    /* Сколько строк(ячеек) будет занимать фотка */
+}
+
+/* ============================================================================================= */
+
+.content__products {}
+
+.products {}
+
+.products__title {
+    color: #fff;
+    font-size: 20px;
+    font-weight: 500;
+    margin: 0px 0px 15px 0px;
+}
+
+/* Задаём грид */
+.products__items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    column-gap: 30px;
+    row-gap: 50px;
+}
+
+/* Задаём грид 
+Строим грид из строк*/
+.products__item {
+    display: grid;
+    grid-auto-flow: row;
+    /* Тут мы выстраиваем объекты автоматически по вертикали (сделает отдельными рядами) */
+    grid-template: auto 1fr minmax(40px, auto)/1fr;
+    /* картинка автоматического размера, название - занмает всё доступное пространство, кнопка - 40 пкс минимальная высота/
+    / 1 колонка */
+}
+
+.products__image {
+    position: relative;
+    padding: 0px 0px 90% 0px;
+    margin: 0px 0px 20px 0px;
+}
+
+.products__image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+.products__name {
+    font-size: 20px;
+    color: #fff;
+    line-height: 24px;
+    margin: 0px 0px 20px 0px;
+}
+
+.products__button {
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background-color: #E28B4F;
+    padding: 0px 20px;
+    line-height: 40px;
+    /* Выравнивает текст по центру */
+    justify-self: start;
+    /* Убирает растягивание кнопки на весь контейнер (сжимает ее к левому краю) */
+}
+
+.footer {
+    background-color: #526525;
+    display: grid;
+    grid-area: footer;
+    padding: 15px;
+    grid-template: 1fr / 1fr minmax(auto, 300px) minmax(auto, 1100px) 1fr;;
+    align-items: center;
+}
+
+.footer__copy {
+    grid-column: 2/3;
+}
+
+.footer__text {
+    grid-column: 3/4;
+    text-align: right;
+}
